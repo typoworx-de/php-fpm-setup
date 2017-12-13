@@ -14,7 +14,7 @@ sudo add-apt-repository ppa:ondrej/php
 sudo apt-get update
 ```
 
-Then install like this:
+### Then install like this:
 ```
 # Virtal-Package containing all available PHP-Versions
 sudo apt-get install php-fpm
@@ -32,3 +32,6 @@ You need at least
 sudo apt-get install libapache2-mod-fastcgi
 sudo a2enmod actions alias
 ```
+
+# For use with OSX
+I recommend using Brew and [PhpBrew](https://github.com/phpbrew/phpbrew)  to install the desired PHP-Versions. Installing other PHP-Versions has been tested on linux using [PhpBrew](https://github.com/phpbrew/phpbrew) and approved to be working! Don't forget to update the PHP-Config for Apache2/NGINX linking to the correct FPM-Socket-Path of your PhpBrew-Instance!
