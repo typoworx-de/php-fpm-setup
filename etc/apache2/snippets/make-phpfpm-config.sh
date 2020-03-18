@@ -23,7 +23,7 @@ then
   exit 1;
 fi
 
-cat <<CONFIG>> ${configPath}/vhost-php${phpVersion}-fpm.conf
+cat <<CONFIG > ${configPath}/vhost-php${phpVersion}-fpm.conf
 #
 # PHP-FPM ${phpVersion}
 #
