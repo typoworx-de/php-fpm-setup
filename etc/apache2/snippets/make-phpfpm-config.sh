@@ -40,6 +40,12 @@ cat <<CONFIG > ${configPath}/vhost-php${phpVersion}-fpm.conf
             SetHandler application/x-httpd-fastphp${phpVersionNumeric}
         </FilesMatch>
     </IfModule>
+    
+    <IfModule mod_fcgid.c>
+        <FilesMatch "\.php$">
+            SetHandler proxy:unix:/run/php/php${phpVersion}-fpm.sock|fcgi://localhost/
+        </FilesMatch>
+    </IfModule>
 </IfVersion>
 
 # Apache2 version >2.4.10
