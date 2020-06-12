@@ -28,24 +28,26 @@ cat <<CONFIG > ${configPath}/vhost-php${phpVersion}-fpm.conf
 # PHP-FPM ${phpVersion}
 #
 
-<IfModule mod_fastcgi.c>
-    # Apache2 version < 2.4.10
-    <IfVersion !~ ^2.4.1[0-9]*$>
+# Apache2 version < 2.4.10
+<IfVersion !~ ^2.4.1[0-9]*$>
+    <IfModule mod_fastcgi.c>
         AddType application/x-httpd-fastphp${phpVersionNumeric} .php
         Action application/x-httpd-fastphp${phpVersionNumeric} /php${phpVersion}-fcgi
         Alias /php${phpVersion}-fcgi /usr/lib/cgi-bin/php${phpVersion}
         AddHandler php${phpVersion}-fcgi .php
 
         <FilesMatch "\.php$">
-                SetHandler application/x-httpd-fastphp${phpVersionNumeric}
+            SetHandler application/x-httpd-fastphp${phpVersionNumeric}
         </FilesMatch>
-    </IfVersion>
+    </IfModule>
+</IfVersion>
 
-    # Apache2 version >2.4.10
-    <IfVersion /^2.4.18[0-9]*$/>
+# Apache2 version >2.4.10
+<IfVersion /^2.4.18[0-9]*$/>
+    <IfModule mod_fcgid.c>
         <FilesMatch "\.php$">
-                SetHandler proxy:unix:/run/php/php${phpVersion}-fpm.sock|fcgi://localhost/
+            SetHandler proxy:unix:/run/php/php${phpVersion}-fpm.sock|fcgi://localhost/
         </FilesMatch>
-    </IfVersion>
-</IfModule>
+    </IfModule>
+</IfVersion>
 CONFIG
